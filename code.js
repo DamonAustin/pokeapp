@@ -26,14 +26,21 @@ const fetchPokemon = function(name){
 
         //actually work with the data
         .then(data => {
-            console.log(data)
+            //console.log(data)
             printPokemonName(data.name);
             displayPokemonPicture(data.sprites.front_default);
         })
 }
 
+const fetch149Pokemon = function() {
+    let pokemonURL = `${POKE_URL}?limit=149`
+    fetch(pokemonURL)
+        .then(response => response.json())
+        .then(data => {
+            data.results.forEach(pokemon => {
+                fetchPokemon(pokemon.name);
+            });
+        })
+}
 
-//get 100 pokemon names and display them
-fetchPokemon("ditto");
-fetchPokemon("pikachu");
-fetchPokemon("arceus");
+fetch149Pokemon();
